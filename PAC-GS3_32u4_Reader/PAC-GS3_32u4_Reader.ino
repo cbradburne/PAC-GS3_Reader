@@ -52,6 +52,7 @@ void loop()
 {
   if (mySerial.available()) {
     byte b = mySerial.read();
+    Keyboard.println(b, HEX);
     variable[index++] = b;
     if (index == 17 && !stopReading) { //
       if ((variable[0] == 0x18) && (variable[1] == 0x18) && (variable[2] == 0x18)) {
@@ -84,7 +85,7 @@ void loop()
 }
 
 void showResults() {
-  /*
+  
     Serial.print(variable[0], HEX);
     Serial.print(variable[1], HEX);
     Serial.print(variable[2], HEX);
@@ -102,15 +103,15 @@ void showResults() {
     Serial.print(variable[14], HEX);
     Serial.print(variable[15], HEX);
     Serial.println(variable[16], HEX);
-  */
+  
   for (uint8_t i = 0; i < 17; i++) {
     if (variable[i] < 16) fullCode += "0";
     fullCode += String(variable[i], HEX);
     fullCode.toUpperCase();
   }
 
-  //Serial.println(fullCode);
-  Keyboard.println(fullCode);
+  Serial.println(fullCode);
+  //Keyboard.println(fullCode);
 
   fullCode = "";
 }
